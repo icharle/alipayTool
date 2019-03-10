@@ -38,17 +38,10 @@ class AlipaytoolServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('alipaytool', function ($app) {
-
-            $config = $app->make('config');
-
-            $appPrivateKey = $config->get('alipaytool.APP_PRIVATE_KEY');
-            $alipayPulicKey = $config->get('alipaytool.ALIPAY_PUBLIC_KEY');
-            $alipayAppId = $config->get('alipaytool.ALIPAY_APP_ID');
-
-
-            return new Alipaytool($alipayAppId, $appPrivateKey, $alipayPulicKey);
+        $this->app->bind('alipaytool', function () {
+            return new Alipaytool();
         });
+        $this->app->alias('alipaytool', Wxtool::class);
     }
 
     /**
