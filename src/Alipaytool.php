@@ -13,7 +13,7 @@ class Alipaytool
     /**
      * 网关
      */
-    const GATEWAYURL = 'https://openapi.alipay.com/gateway.do';
+    const GATEWAYURL = 'https://openapi.alipay.com/gateway.do?';
 
     /**
      * SDK 版本
@@ -67,14 +67,14 @@ class Alipaytool
 
     public static function getUserInfoByAccessToken($access_token)
     {
-        $param = self::buildUserInfoParams($access_token);;
-        return self::curl(http_build_query($param));
+        $param = self::buildUserInfoParams($access_token);
+        return self::curl(self::GATEWAYURL.http_build_query($param));
     }
 
     public static function getAccessToken($authCode)
     {
         $param = self::buildAuthCodeParams($authCode);
-        return self::curl(http_build_query($param));
+        return self::curl(self::GATEWAYURL.http_build_query($param));
     }
 
     public static function buildUserInfoParams($token)
