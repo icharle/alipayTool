@@ -1,0 +1,19 @@
+{
+    "name": "icharle/alipaytool",
+    "description": "支付宝授权信息接口及授权令牌接口",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "icharle",
+            "email": "icharle@live.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Icharle\\Alipaytool\\": "src/"
+        }
+    }
+}
