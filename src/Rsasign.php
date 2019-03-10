@@ -7,7 +7,7 @@
  */
 
 namespace Icharle\Alipaytool;
-
+use Illuminate\Support\Facades\Storage;
 
 class Rsasign
 {
@@ -26,8 +26,8 @@ class Rsasign
 
     public function __construct()
     {
-        self::$rsaPrivateKey = config('alipaytool.APP_PRIVATE_KEY');
-        self::$alipayrsaPublicKey = config('alipaytool.ALIPAY_PUBLIC_KEY');
+        self::$rsaPrivateKey=file_get_contents(storage_path(config('alipaytool.APP_PRIVATE_KEY')));
+        self::$alipayrsaPublicKey = file_get_contents(storage_path(config('alipaytool.ALIPAY_PUBLIC_KEY')));
     }
 
     /**
