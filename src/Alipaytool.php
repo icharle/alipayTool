@@ -50,9 +50,19 @@ class Alipaytool
     const API_METHOD_AUTH_TOKEN = 'alipay.system.oauth.token';
 
     /**
+     * 换取授权访问令牌返回
+     */
+    const API_METHOD_AUTH_TOKEN_RESPONSE = 'alipay_system_oauth_token_response';
+
+    /**
      * 支付宝会员授权信息查询接口
      */
     const API_METHOD_GET_USER_INFO = 'alipay.user.info.share';
+
+    /**
+     * 支付宝会员授权信息查询接口返回
+     */
+    const API_METHOD_GET_USER_INFO_RESPONSE = 'alipay_user_info_share_response';
 
     /**
      * @var
@@ -68,13 +78,27 @@ class Alipaytool
     public static function getUserInfoByAccessToken($access_token)
     {
         $param = self::buildUserInfoParams($access_token);
-        return self::curl(self::GATEWAYURL.http_build_query($param));
+        $ret = self::curl(self::GATEWAYURL . http_build_query($param));
+        return self::Resopnse($ret, self::API_METHOD_GET_USER_INFO_RESPONSE);
     }
 
     public static function getAccessToken($authCode)
     {
         $param = self::buildAuthCodeParams($authCode);
-        return self::curl(self::GATEWAYURL.http_build_query($param));
+        $ret = self::curl(self::GATEWAYURL . http_build_query($param));
+        return self::Resopnse($ret, self::API_METHOD_AUTH_TOKEN_RESPONSE);
+    }
+
+    public static function Resopnse($result, $detailResopnse)
+    {
+        if (isset($result['error_response'])) {
+            return [
+                'code' => $result['error_response']['code'],
+                'msg' => $result['error_response']['sub_msg']
+            ];
+        } else {
+            return $result[$detailResopnse];
+        }
     }
 
     public static function buildUserInfoParams($token)
@@ -168,7 +192,8 @@ class Alipaytool
         return $value === null || trim($value) === '';
     }
 
-    protected static function curl($url) {
+    protected static function curl($url)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FAILONERROR, false);
@@ -189,6 +214,6 @@ class Alipaytool
             }
         }
         curl_close($ch);
-        return $reponse;
+        return json_decode($reponse, true);
     }
 }
