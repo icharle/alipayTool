@@ -12,7 +12,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'APP_PRIVATE_KEY' => env('APP_PRIVATE_KEY_PATH'),
+    'APP_PRIVATE_KEY' => env('APP_PRIVATE_KEY_PATH','pem/private.txt'),
 
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'ALIPAY_PUBLIC_KEY' => env('ALIPAY_PUBLIC_KEY_PATH'),
+    'ALIPAY_PUBLIC_KEY' => env('ALIPAY_PUBLIC_KEY_PATH','pem/public.txt'),
 
     /*
     |--------------------------------------------------------------------------

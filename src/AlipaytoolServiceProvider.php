@@ -9,6 +9,7 @@
 namespace Icharle\Alipaytool;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Storage;
 
 class AlipaytoolServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,9 @@ class AlipaytoolServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/alipaytool.php' => config_path('alipaytool.php')
+            __DIR__ . '/../config/alipaytool.php' => config_path('alipaytool.php'),
+            __DIR__ . '/../storage/private.txt' => storage_path('pem/private.txt'),
+            __DIR__ . '/../storage/public.txt' => storage_path('pem/public.txt')
         ], 'alipaytool');
     }
 
