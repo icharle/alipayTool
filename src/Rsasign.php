@@ -83,7 +83,7 @@ class Rsasign
      */
     public static function verifySignature($data, $sign)
     {
-        if (!is_string($sign) || !is_string($sign)) {
+        if (!is_string($sign)) {
             return false;
         }
         $decodedSign = base64_decode($sign, true);
